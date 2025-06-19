@@ -12,9 +12,9 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.node,
-        ...globals.es2021
-      }
-    }
+        ...globals.es2021,
+      },
+    },
   },
   {
     rules: {
@@ -22,12 +22,12 @@ export default [
       'import/extensions': [
         'error',
         'ignorePackages',
-        { js: 'always' }
+        { js: 'always' },
       ],
       'no-underscore-dangle': [
-        'error', 
-        { allow: ['__filename', '__dirname'] }
-      ]
-    }
-  }
+        'error',
+        { allow: ['__filename', '__dirname'] },
+      ],
+    },
+  },
 ]
