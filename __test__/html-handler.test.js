@@ -14,7 +14,7 @@ nock.disableNetConnect()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const getFixturePath = (filename) => path.join(__dirname, '.', '__fixtures__', filename)
+const getFixturePath = filename => path.join(__dirname, '.', '__fixtures__', filename)
 
 const noop = () => {}
 
@@ -58,7 +58,7 @@ test('extractFilesAndPrepareHTML - basic case', async () => {
   const scriptURL = new URL('https://ru.hexlet.io/packs/js/runtime.js')
   nock(scriptURL.origin)
     .get(scriptURL.pathname)
-    .reply(200, "console.log('Hello, World!')")
+    .reply(200, 'console.log(\'Hello, World!\')')
 
   const preparedHTML = await loadAssetsAndPrepareHTML(url.href, currentDir, rawHTML)
     .then(async (html) => {
@@ -90,7 +90,7 @@ test('extractFilesAndPrepareHTML - basic case', async () => {
 
   const scriptPath = path.join(expectedFilesDirPath, scriptName)
   const actualScript = await fs.readFile(scriptPath, 'utf-8')
-  expect(actualScript).toEqual("console.log('Hello, World!')")
+  expect(actualScript).toEqual('console.log(\'Hello, World!\')')
 })
 
 afterAll(() => {
