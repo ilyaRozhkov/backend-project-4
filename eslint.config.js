@@ -1,6 +1,6 @@
-import eslintJs from '@eslint/js';
-import airbnb from 'eslint-config-airbnb-base';
-import globals from 'globals';
+import eslintJs from '@eslint/js'
+import airbnb from 'eslint-config-airbnb-base'
+import globals from 'globals'
 
 export default [
   eslintJs.configs.recommended,
@@ -30,4 +30,4 @@ export default [
       ]
     }
   }
-];
+]
