@@ -63,7 +63,7 @@ describe('general cases', () => {
     const scriptURL = new URL('https://ru.hexlet.io/packs/js/runtime.js')
     nock(scriptURL.origin)
       .get(scriptURL.pathname)
-      .reply(200, "console.log('Hello, World!')")
+      .reply(200, 'console.log(\'Hello, World!\')')
 
     const logSpy = jest.spyOn(console, 'log')
 
@@ -100,7 +100,7 @@ describe('general cases', () => {
 
     const scriptPath = path.join(expectedFilesDirPath, scriptName)
     const actualScript = await fs.readFile(scriptPath, 'utf-8')
-    expect(actualScript).toEqual("console.log('Hello, World!')")
+    expect(actualScript).toEqual('console.log(\'Hello, World!\')')
   })
 })
 
@@ -147,14 +147,14 @@ describe('error cases', () => {
     const scriptURL = new URL('https://ru.hexlet.io/packs/js/runtime.js')
     nock(scriptURL.origin)
       .get(scriptURL.pathname)
-      .reply(200, "console.log('Hello, World!')")
+      .reply(200, 'console.log(\'Hello, World!\')')
 
     await fs.chmod(currentDir, 0o400)
     await expect(loadPage(url.href, currentDir))
       .rejects.toThrow(/EACCES/)
   })
 
-  test("file system error - output directory doesn't exist", async () => {
+  test('file system error - output directory doesn\'t exist', async () => {
     const badPath = path.join(currentDir, 'unknown')
     await expect(loadPage(url.href, badPath))
       .rejects.toThrow(/ENOENT/)
