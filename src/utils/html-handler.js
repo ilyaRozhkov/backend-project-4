@@ -37,8 +37,8 @@ const createTasksToLoadAssets = (elements, outputDir, url, $, attrName) => {
       const elPath = path.resolve(outputDir.dirFilesPath, elName)
       el.attr(attrName, path.join(outputDir.dirFilesName, elName))
       tasks.push(createTask(elURL, ext, elPath))
-    } 
-    else log("Data cant't be loaded")
+    }
+    else log('Data cant\'t be loaded')
   }
   return tasks
 }
