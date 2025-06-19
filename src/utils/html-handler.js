@@ -23,9 +23,9 @@ const createTask = (elURL, ext, elPath) => {
 
 const createTasksToLoadAssets = (elements, outputDir, url, $, attrName) => {
   const tasks = []
-  for (let i = 0; i < elements.length; i += 1) {
+  for (const element of elements) {
     const { hostname } = new URL(url)
-    const el = $(elements[i])
+    const el = $(element)
     const attr = el.attr(attrName)
     log(`Link handling - ${attr}`)
     const elURL = new URL(attr, url)
