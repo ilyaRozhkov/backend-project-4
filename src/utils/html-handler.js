@@ -50,27 +50,30 @@ export default (url, outputDirPath, rawHTML) => {
   const $ = cheerio.load(rawHTML)
 
   log(`Creating a directory for assets (path: ${dirFilesPath})`)
-  return fs.mkdir(dirFilesPath)
-    .then(() => {
-      log('Preparing tasks for images')
-      const images = $('img')
-      const imgTasks = createTasksToLoadAssets(images, { dirFilesPath, dirFilesName }, url, $, 'src')
+  return fs.mkdir(dirFilesPath, { recursive: true })
+  .then(() => {
+    log('Preparing tasks for images')
+    const images = $('img')
+    const imgTasks = createTasksToLoadAssets(images, { dirFilesPath, dirFilesName }, url, $, 'src')
 
-      log('Preparing tasks for links')
-      const links = $('link')
-      const linksTasks = createTasksToLoadAssets(links, { dirFilesPath, dirFilesName }, url, $, 'href')
+    log('Preparing tasks for links')
+    const links = $('link')
+    const linksTasks = createTasksToLoadAssets(links, { dirFilesPath, dirFilesName }, url, $, 'href')
 
-      log('Preparing tasks for scripts')
-      const scripts = $('script')
-      const scriptsTasks = createTasksToLoadAssets(scripts, { dirFilesPath, dirFilesName }, url, $, 'src')
+    log('Preparing tasks for scripts')
+    const scripts = $('script')
+    const scriptsTasks = createTasksToLoadAssets(scripts, { dirFilesPath, dirFilesName }, url, $, 'src')
 
-      log('Start loading assets')
-      return new Listr(
-        [...imgTasks, ...linksTasks, ...scriptsTasks],
-        { concurrent: true, exitOnError: false },
-      )
-        .run()
-        .then(() => $.html())
-        .catch(err => console.error(err))
-    })
+    log('Start loading assets')
+    return new Listr(
+      [...imgTasks, ...linksTasks, ...scriptsTasks],
+      { concurrent: true, exitOnError: false }
+    )
+      .run()
+      .then(() => $.html())
+  })
+  .catch(err => {
+    console.error('Critical error:', err)
+    throw err
+  })
 }
