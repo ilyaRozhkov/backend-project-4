@@ -50,7 +50,7 @@ export default (url, outputDirPath, rawHTML) => {
   const $ = cheerio.load(rawHTML)
 
   log(`Creating a directory for assets (path: ${dirFilesPath})`)
-  return fs.mkdir(dirFilesPath)
+  return fs.mkdir(dirFilesPath, { recursive: true })
     .then(() => {
       log('Preparing tasks for images')
       const images = $('img')
